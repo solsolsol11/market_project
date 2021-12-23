@@ -1,0 +1,13 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<section class="section-prod-list mt-4">
+    <div class="container">
+        <ul>
+            {% for product in products %}
+            <li><a href="{% url 'products:detail' product.id%}">{{ product.display_name }} {{ product.sale_price }}원 </a></li>
+            {% endfor %}
+        </ul>
+    </div>
+</section>
+{% endblock %}
