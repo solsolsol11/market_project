@@ -16,8 +16,8 @@ def product_list(request: HttpRequest):
         "products": products
     })
 
-def _product_detail(request: HttpRequest, id):
-    product = get_object_or_404(Product, id=id)
+def _product_detail(request: HttpRequest, product_id):
+    product = get_object_or_404(Product, id=product_id)
 
     if request.method == "POST":
         form = QuestionForm(request.POST)
@@ -29,7 +29,7 @@ def _product_detail(request: HttpRequest, id):
             question.save()
             messages.success(request, "질문이 등록되었습니다")
 
-        return redirect("products:detail", id=product.id)
+        return redirect("products:detail", product_id=product.id)
     else:
         form = QuestionForm(request.POST)
 
@@ -45,10 +45,18 @@ def _product_detail(request: HttpRequest, id):
     })
 
 
-def product_detail(request: HttpRequest, id):
-    return _product_detail(request,id)
+def product_detail(request: HttpRequest, product_id):
+    return _product_detail(request,product_id)
 
 
-def question_create(request: HttpRequest, id):
-    return _product_detail(request, id)
+def question_create(request: HttpRequest, product_id):
+    return _product_detail(request, product_id)
 
+def question_delete(request: HttpRequest, product_id, question_id):
+    question = get_object_or_404(Question, id=question_id)
+
+    question.delete()
+
+    messages.success(request, "질문이 삭제되었습니다")
+
+    return redirect("products:detail", product_id=product_id)
