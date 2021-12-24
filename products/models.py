@@ -1,7 +1,9 @@
+from django.contrib.contenttypes.fields import GenericRelation
 from django.db import models
 
 # Create your models here.
 from markets.models import Market
+from qna.models import Question
 
 
 class Product(models.Model):
@@ -20,6 +22,8 @@ class Product(models.Model):
     hit_count = models.PositiveIntegerField('조회수', default=0)
     review_count = models.PositiveIntegerField('리뷰수', default=0)
     review_point = models.PositiveIntegerField('리뷰평점', default=0)
+    questions = GenericRelation(Question, related_query_name="question")
+
 
 
 class ProductReal(models.Model):

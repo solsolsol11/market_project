@@ -41,6 +41,7 @@ class Migration(migrations.Migration):
                 ('is_complete', models.BooleanField(default=False, verbose_name='답변완료여부')),
                 ('content_type', models.ForeignKey(on_delete=django.db.models.deletion.DO_NOTHING, related_name='content_type_question', to='contenttypes.contenttype')),
                 ('user', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL)),
+                ('modify_date', models.DateTimeField(null=True, blank=True)),
             ],
         ),
         migrations.CreateModel(
@@ -52,6 +53,7 @@ class Migration(migrations.Migration):
                 ('body', models.TextField(verbose_name='내용')),
                 ('question', models.OneToOneField(on_delete=django.db.models.deletion.CASCADE, to='qna.question')),
                 ('user', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL)),
+                ('modify_date', models.DateTimeField(null=True, blank=True)),
             ],
         ),
         migrations.RunPython(gen_master)

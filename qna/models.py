@@ -15,6 +15,8 @@ class Question(models.Model):
     content_object = GenericForeignKey('content_type', 'object_id')
     body = models.TextField('내용')
     is_complete = models.BooleanField('답변완료여부', default=False)
+    modify_date = models.DateTimeField(null=True, blank=True)
+
 
 
 class Answer(models.Model):
@@ -23,3 +25,4 @@ class Answer(models.Model):
     question = models.OneToOneField(Question, on_delete=models.CASCADE)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     body = models.TextField('내용')
+    modify_date = models.DateTimeField(null=True, blank=True)
