@@ -4,9 +4,21 @@
 
 <section class="section-prod-list mt-4">
     <div class="container">
-        <ul>
+        <h1 class="t-text-[1.5rem] t-font-bold">상품리스트</h1>
+        <ul class="t-grid t-grid-cols-1 sm:t-grid-cols-2 md:t-grid-cols-3 lg:t-grid-cols-4 t-gap-[20px] p-0 t-mt-3">
             {% for product in products %}
-            <li><a href="{% url 'products:detail' product.id%}">{{ product.display_name }} {{ product.sale_price }}원 </a></li>
+            <li class="t-flex t-flex-col">
+                <a href="{% url 'products:detail' product.id%}">
+                    <img class="t-block t-w-full" src="{{product.thumb_img_url}}" alt="">
+                </a>
+
+                <a class="t-text-center" href="{% url 'products:detail' product.id%}">
+                    {{ product.display_name }}
+                </a>
+                <a class="t-text-center" href="{% url 'products:detail' product.id%}">
+                    {{ product.sale_price }}원
+                </a>
+            </li>
             {% endfor %}
         </ul>
     </div>

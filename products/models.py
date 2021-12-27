@@ -24,6 +24,8 @@ class Product(models.Model):
     review_point = models.PositiveIntegerField('리뷰평점', default=0)
     questions = GenericRelation(Question, related_query_name="question")
 
+    def thumb_img_url(self):
+        return f"https://picsum.photos/id/{self.id}/300/300";
 
 
 class ProductReal(models.Model):

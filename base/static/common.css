@@ -6,20 +6,56 @@
   margin-top: 56px;
 }
 
+.t-mt-3 {
+  margin-top: 0.75rem;
+}
+
+.t-block {
+  display: block;
+}
+
 .t-flex {
   display: flex;
+}
+
+.t-grid {
+  display: grid;
 }
 
 .t-min-h-screen {
   min-height: 100vh;
 }
 
+.t-w-full {
+  width: 100%;
+}
+
 .t-flex-1 {
   flex: 1 1 0%;
 }
 
+.t-grid-cols-3 {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.t-grid-cols-5 {
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+}
+
+.t-grid-cols-1 {
+  grid-template-columns: repeat(1, minmax(0, 1fr));
+}
+
 .t-flex-col {
   flex-direction: column;
+}
+
+.t-gap-\[10px\] {
+  gap: 10px;
+}
+
+.t-gap-\[20px\] {
+  gap: 20px;
 }
 
 .t-whitespace-nowrap {
@@ -40,6 +76,18 @@
   text-align: center;
 }
 
+.t-text-\[2rem\] {
+  font-size: 2rem;
+}
+
+.t-text-\[1\.5rem\] {
+  font-size: 1.5rem;
+}
+
+.t-font-bold {
+  font-weight: 700;
+}
+
 @font-face {
   font-family: 'GmarketSansMedium';
 
@@ -53,4 +101,22 @@
 html > body {
   font-family : "GmarketSansMedium" ;
   text-underline-position : under ;
+}
+
+@media (min-width: 640px) {
+  .sm\:t-grid-cols-2 {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 768px) {
+  .md\:t-grid-cols-3 {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 1024px) {
+  .lg\:t-grid-cols-4 {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
 }
