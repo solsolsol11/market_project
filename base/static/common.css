@@ -1,3 +1,45 @@
+.t-mt-\[56\] {
+  margin-top: 56;
+}
+
+.t-mt-\[56px\] {
+  margin-top: 56px;
+}
+
+.t-flex {
+  display: flex;
+}
+
+.t-min-h-screen {
+  min-height: 100vh;
+}
+
+.t-flex-1 {
+  flex: 1 1 0%;
+}
+
+.t-flex-col {
+  flex-direction: column;
+}
+
+.t-whitespace-nowrap {
+  white-space: nowrap;
+}
+
+.t-bg-\[\#afafaf\] {
+  --tw-bg-opacity: 1;
+  background-color: rgb(175 175 175 / var(--tw-bg-opacity));
+}
+
+.t-bg-\[\#ddd\] {
+  --tw-bg-opacity: 1;
+  background-color: rgb(221 221 221 / var(--tw-bg-opacity));
+}
+
+.t-text-center {
+  text-align: center;
+}
+
 @font-face {
   font-family: 'GmarketSansMedium';
 

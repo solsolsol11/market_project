@@ -1,5 +1,5 @@
-{% load static %}
 <!doctype html>
+{% load static %}
 <html lang="ko">
 <head>
     <meta charset="UTF-8">
@@ -13,7 +13,7 @@
     <link rel="stylesheet" href="{% static 'common.css' %}">
     <script defer src="{% static 'common.js' %}"></script>
 </head>
-<body>
+<body class="t-flex t-flex-col t-min-h-screen">
 
 {% if messages %}
 {% for message in messages %}
@@ -23,9 +23,44 @@
 {% endfor %}
 {% endif %}
 
+<header>
+  <!-- Fixed navbar -->
+  <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="#">멕아 쇼핑물</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarCollapse">
+        <ul class="navbar-nav me-auto mb-2 mb-md-0">
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="/">홈</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/products">상품리스트</a>
+          </li>
 
-{% block content %}
+        </ul>
+        <form class="d-flex">
+          <input class="form-control me-2" type="search" placeholder="상품명을 입력해주세요" aria-label="Search">
+          <button class="btn btn-outline-success  t-whitespace-nowrap" type="submit">검색</button>
+        </form>
+      </div>
+    </div>
+  </nav>
+</header>
+
+<div class="t-flex-1 flex-shrink-0 t-mt-[56px]">
+    {% block content %}
 {% endblock %}
+</div>
+
+
+<footer class="footer py-3 bg-light">
+  <div class="container t-text-center">
+    <span class="text-muted">copyright(c) 2002 All rights reserved -</span>
+  </div>
+</footer>
 
 </body>
 </html>
