@@ -2,9 +2,9 @@
 {% load django_bootstrap5 %}
 
 {% block content %}
-<section class="section-prod-detail mt-4">
+<section class="section-prod-question_modify mt-4">
     <div class="container">
-        <h1>기본정보</h1>
+        <h1>상품 기본정보</h1>
         <ul>
             <div>
                 번호 : {{product.id}}
@@ -35,28 +35,16 @@
             </li>
             {% endfor %}
         </ul>
-        <h1 class="mt-3">질문 등록</h1>
-        <form class="post-form my3" method="POST" action="{% url 'products:question_create' product.id %}">
+        <h1 class="mt-3">질문 수정</h1>
+        <form class="post-form my3" method="POST" action="{% url 'products:question_modify' product.id question.id %}">
             {% csrf_token %}
 
             {% bootstrap_form question_form %}
-            {% bootstrap_button button_type="submit" content="질문작성" %}
+            {% bootstrap_button button_type="submit" content="질문수정" %}
             {% bootstrap_button button_type="reset" content="취소" %}
 
         </form>
-        <h1 class="mt-3">질문 리스트</h1>
 
-        <ul>
-            {% for question in questions %}
-            <li class="p-3">
-                {{question.id}}.
-                {{question.body}}
-                <a href="{% url 'products:question_delete' product.id question.id %}" class="btn btn-sm btn-danger" onclick="if(confirm ('정말 삭제하시겠습니까?') == false) return false">삭제</a>
-                <a href="{% url 'products:question_modify' product.id question.id %}" class="btn btn-sm btn-info">수정</a>
-
-            </li>
-            {% endfor %}
-        </ul>
     </div>
 </section>
 {% endblock %}
