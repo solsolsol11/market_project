@@ -1,4 +1,5 @@
 {% extends "layout.html" %}
+{% load humanize %}
 
 {% block content %}
 
@@ -7,20 +8,23 @@
         <h1 class="t-text-[1.5rem] t-font-bold">상품리스트</h1>
         <ul class="t-grid t-grid-cols-1 sm:t-grid-cols-2 md:t-grid-cols-3 lg:t-grid-cols-4 t-gap-[20px] p-0 t-mt-3">
             {% for product in products %}
+            {% with img_class="t-relative hover:before:t-bg-[#00000055] before:t-bg-[#0000000] before:t-absolute before:t-inset-0 before:t-content-[''] after:t-content-['VIEW_MORE'] after:t-absolute after:t-no-underline after:t-text-white after:t-top-[50%] after:t-left-[50%]  after:t-translate-y-[-50%]  after:t-translate-x-[-50%]" %}
             <li class="t-flex t-flex-col">
-                <a href="{% url 'products:detail' product.id%}">
+                <a href="{% url 'products:detail' product.id%}" class="{{ img_class }}" >
                     <img class="t-block t-w-full" src="{{product.thumb_img_url}}" alt="">
                 </a>
 
                 <a class="t-text-center" href="{% url 'products:detail' product.id%}">
                     {{ product.display_name }}
                 </a>
-                <a class="t-text-center" href="{% url 'products:detail' product.id%}">
-                    {{ product.sale_price }}원
+                <a class="t-text-center t-mt-2" href="{% url 'products:detail' product.id%}">
+                    {{ product.sale_price|intcomma }}원
                 </a>
             </li>
+            {% endwith %}
             {% endfor %}
         </ul>
     </div>
 </section>
+
 {% endblock %}
