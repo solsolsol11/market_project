@@ -56,13 +56,16 @@
             </div>
 
             <div class="card-body">
-
-                <form method="POST" action="">
+                {% if user.is_authenticated %}
+                <form method="POST" action="{% url 'products:question_create' product.id %}">
                     {% csrf_token %}
                     {% bootstrap_form question_form %}
                     {% bootstrap_button button_type="submit" content="질문작성" %}
                     {% bootstrap_button button_type="reset" content="취소" %}
                 </form>
+                {% else %}
+                <a href="{% url 'accounts:signin' %}">로그인</a> 후 이용해주세요.
+                {% endif %}
             </div>
         </div>
 

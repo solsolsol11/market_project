@@ -43,15 +43,15 @@
                     </li>
                     {% if user.is_authenticated %}
                      <li class="nav-item">
-                        <a class="nav-link" href="accounts/signout">로그아웃</a>
+                        <a class="nav-link" href="{% url 'accounts:signout' %}">로그아웃</a>
                     </li>
 
                     {% else %}
                      <li class="nav-item">
-                        <a class="nav-link" href="accounts/signin">로그인</a>
+                        <a class="nav-link" href="{% url 'accounts:signin' %}">로그인</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="accounts/signup">회원가입</a>
+                        <a class="nav-link" href="{% url 'accounts:signup' %}">회원가입</a>
                     </li>
                     {% endif %}
                 </ul>
