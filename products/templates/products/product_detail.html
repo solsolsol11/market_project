@@ -3,6 +3,8 @@
 {% load django_bootstrap5 %}
 
 {%block content %}
+
+
 <section class="section-prod-detail">
     <div class="container">
         <div class="card">
@@ -66,6 +68,16 @@
                 </form>
                 {% else %}
                 <a href="{% url 'accounts:signin' %}">로그인</a> 후 이용해주세요.
+                {% endif %}
+
+                <script>
+                    let $form = $('form').last();
+                    $(function() {
+
+                        $(window).scrollTop($form.offset().top);
+                    });
+                </script>
+                {% if question_form.errors %}
                 {% endif %}
             </div>
         </div>
