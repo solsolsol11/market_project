@@ -70,14 +70,13 @@
                 <a href="{% url 'accounts:signin' %}">로그인</a> 후 이용해주세요.
                 {% endif %}
 
+                {% if question_form.errors %}
                 <script>
-                    let $form = $('form').last();
-                    $(function() {
-
-                        $(window).scrollTop($form.offset().top);
+                    let $lastform = $('form').last();
+                    $(window).on('load', function(){
+                        $(window).scrollTop($lastForm.offset().top);
                     });
                 </script>
-                {% if question_form.errors %}
                 {% endif %}
             </div>
         </div>
