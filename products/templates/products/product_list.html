@@ -3,10 +3,10 @@
 
 {% block content %}
 
-<section class="section-prod-list mt-4">
+<section class="section-prod-list">
     <div class="container">
         <h1 class="t-text-[1.5rem] t-font-bold">상품리스트</h1>
-        <ul class="t-grid t-grid-cols-1 sm:t-grid-cols-2 md:t-grid-cols-3 lg:t-grid-cols-4 t-gap-[20px] p-0 t-mt-3">
+        <ul class="t-grid t-grid-cols-1 sm:t-grid-cols-2 md:t-grid-cols-3 lg:t-grid-cols-4 t-gap-[20px] t-mt-3">
             {% for product in products %}
             {% with img_box_class="t-relative" %}
             {% with img_box_before_class="before:t-content-[''] before:t-absolute before:t-inset-0 before:t-bg-[#0000000] hover:before:t-bg-[#00000055] before:t-transition-all" %}
