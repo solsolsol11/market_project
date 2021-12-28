@@ -57,6 +57,7 @@
 
             <div class="card-body">
                 {% if user.is_authenticated %}
+
                 <form method="POST" action="{% url 'products:question_create' product.id %}">
                     {% csrf_token %}
                     {% bootstrap_form question_form %}

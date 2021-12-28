@@ -19,13 +19,13 @@ def product_list(request: HttpRequest):
 def _product_detail(request: HttpRequest, product_id):
     product = get_object_or_404(Product, id=product_id)
 
-    if request.method == "POST":
+    if request.method == "POST" and request.user.is_authenticated:
         form = QuestionForm(request.POST)
         if form.is_valid():
             question = form.save(commit=False)
             question.content_type = ContentType.objects.get_for_model(product)
             question.object_id = product.id
-            question.user_id = 1
+            question.user = request.user
             question.save()
             messages.success(request, "질문이 등록되었습니다")
 
