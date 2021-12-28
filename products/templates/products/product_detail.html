@@ -80,10 +80,13 @@
                 <li class="list-group-item">
                     <span class="badge bg-secondary">{{question.id}}</span>
                     {{question.body}}
+                    {% if question.user == request.user %}
                     <a href="{% url 'products:question_delete' product.id question.id %}" class="btn btn-sm btn-warning"
                        onclick="if ( confirm('정말 삭제하시겠습니까?') == false ) return false;">삭제</a>
+                    {% endif %}
                     <a href="{% url 'products:question_modify' product.id question.id %}"
                        class="btn btn-sm btn-secondary">수정</a>
+
                 </li>
                 {% endfor %}
             </ul>

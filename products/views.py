@@ -1,5 +1,7 @@
 from django.contrib import messages
+from django.contrib.auth.decorators import login_required
 from django.contrib.contenttypes.models import ContentType
+from django.core import exceptions
 from django.http import HttpRequest, HttpResponse
 from django.shortcuts import render, get_object_or_404, redirect
 from django.utils import timezone
@@ -52,8 +54,12 @@ def product_detail(request: HttpRequest, product_id):
 def question_create(request: HttpRequest, product_id):
     return _product_detail(request, product_id)
 
+@login_required
 def question_delete(request: HttpRequest, product_id, question_id):
     question = get_object_or_404(Question, id=question_id)
+
+    if request.user != question.user:
+        raise exceptions.PermissionDenied
 
     question.delete()
 
