@@ -20,8 +20,12 @@
   margin-bottom: 0px;
 }
 
-.t-mt-\[56px\] {
-  margin-top: 56px;
+.t-mt-\[30px\] {
+  margin-top: 30px;
+}
+
+.t-mt-3 {
+  margin-top: 0.75rem;
 }
 
 .t-mt-2 {
@@ -30,18 +34,6 @@
 
 .t-mt-5 {
   margin-top: 1.25rem;
-}
-
-.t-mt-3 {
-  margin-top: 0.75rem;
-}
-
-.t-mt-7 {
-  margin-top: 1.75rem;
-}
-
-.t-mt-\[30px\] {
-  margin-top: 30px;
 }
 
 .t-block {
@@ -100,11 +92,6 @@
   white-space: nowrap;
 }
 
-.t-bg-red-500 {
-  --tw-bg-opacity: 1;
-  background-color: rgb(239 68 68 / var(--tw-bg-opacity));
-}
-
 .t-py-\[20px\] {
   padding-top: 20px;
   padding-bottom: 20px;
@@ -118,21 +105,16 @@
   text-align: center;
 }
 
-.t-text-\[1\.5rem\] {
-  font-size: 1.5rem;
-}
-
 .t-text-\[20px\] {
   font-size: 20px;
 }
 
-.t-font-bold {
-  font-weight: 700;
+.t-text-\[1\.5rem\] {
+  font-size: 1.5rem;
 }
 
-.t-text-\[color\:red\] {
-  --tw-text-opacity: 1;
-  color: rgb(255 0 0 / var(--tw-text-opacity));
+.t-font-bold {
+  font-weight: 700;
 }
 
 @font-face {
