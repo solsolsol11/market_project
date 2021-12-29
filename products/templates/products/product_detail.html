@@ -67,14 +67,14 @@
                     {% bootstrap_button button_type="reset" content="취소" %}
                 </form>
                 {% else %}
-                <a href="{% url 'accounts:signin' %}">로그인</a> 후 이용해주세요.
+                <a href="{% url 'accounts:signin' %}?next={{ request.get_full_path }}">로그인</a> 후 이용해주세요.
                 {% endif %}
 
                 {% if question_form.errors %}
                 <script>
-                    let $lastForm = $('form').last();
-                    $(window).on('load', function(){
-                        $(window).scrollTop($lastForm.offset().top);
+                    let $Form = $('form').last();
+                    (function(){
+                        $(window).scrollTop($Form.offset().top);
                     });
                 </script>
                 {% endif %}
