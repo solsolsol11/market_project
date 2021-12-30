@@ -4,3 +4,4 @@ git+https://github.com/jhs512/django-pydenticon
 mysqlclient
 django_bootstrap5
 lazy-string
+requests
