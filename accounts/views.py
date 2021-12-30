@@ -1,9 +1,10 @@
+import os
+
 import requests
 from django.contrib import messages
 from django.contrib.auth import login as auth_login
 from django.contrib.auth.views import logout_then_login, LoginView
 from django.contrib.messages.views import SuccessMessageMixin
-
 
 from django.db.models import QuerySet
 from django.forms import ModelForm
@@ -86,10 +87,14 @@ def find_username(request: HttpRequest):
 
 
 def kakao_login(request: HttpRequest):
-    client_id = "aada477afc042d55e52f3b009de41e5b"
-    REDIRECT_URI = "http://localhost:8000/accounts/signin/kakao/callback"
+    os.environ.get("KAKAO_APP__REST_API_KEY")
+    os.environ.get("KAKAO_APP__LOGIN__REDIRECT_URI")
+
+    REST_API_KEY = os.environ.get("KAKAO_APP__REST_API_KEY")
+    REDIRECT_URI = os.environ.get("KAKAO_APP__LOGIN__REDIRECT_URI")
+
     return redirect(
-        f"https://kauth.kakao.com/oauth/authorize?client_id={client_id}&redirect_uri={REDIRECT_URI}&response_type=code"
+        f"https://kauth.kakao.com/oauth/authorize?client_id={REST_API_KEY}&redirect_uri={REDIRECT_URI}&response_type=code"
     )
 
 
@@ -99,14 +104,17 @@ class KakaoException(Exception):
 
 
 def kakao_signin_callback(request):
-    # (1)
     code = request.GET.get("code")
-    client_id = "aada477afc042d55e52f3b009de41e5b"
+
+    REST_API_KEY = os.environ.get("KAKAO_APP__REST_API_KEY")
+    REDIRECT_URI = os.environ.get("KAKAO_APP__LOGIN__REDIRECT_URI")
+
+    REST_API_KEY = "aada477afc042d55e52f3b009de41e5b"
     REDIRECT_URI = "http://localhost:8000/accounts/signin/kakao/callback"
 
     # (2)
     token_request = requests.get(
-        f"https://kauth.kakao.com/oauth/token?grant_type=authorization_code&client_id={client_id}&redirect_uri={REDIRECT_URI}&code={code}"
+        f"https://kauth.kakao.com/oauth/token?grant_type=authorization_code&client_id={REST_API_KEY}&redirect_uri={REDIRECT_URI}&code={code}"
     )
     # (3)
 
@@ -114,7 +122,7 @@ def kakao_signin_callback(request):
 
     error = token_json.get("error", None)
     if error is not None:
-        raise KakaoException()
+        raise Exception("카카오 로그인 에러")
 
     access_token = token_json.get("access_token")
 
@@ -126,3 +134,6 @@ def kakao_signin_callback(request):
 
     id = profile_json.get("id")
 
+    User.login_with_kakao(id)
+
+    return HttpResponse(id)
