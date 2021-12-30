@@ -32,6 +32,10 @@
                     <span class="sm:t-w-16 t-inline-block">가격</span>
                     <span class="t-font-bold">{{product.sale_price|intcomma}}</span>원
                 </li>
+                <li class="list-group-item">
+                    <span class="sm:t-w-16 t-inline-block">색상</span>
+                    {{product.colors|safe}}
+                </li>
 
             </ul>
 

@@ -25,6 +25,12 @@
                     <span class="">{{ product.sale_price|intcomma }}</span>
 
                 </a>
+
+                <a class="t-text-center t-mt-2 t-no-underline t-text-gray-400 group-hover:t-text-blue-500" href="{% url 'products:detail' product.id%}">
+                    <span class="">{{ product.colors|safe }}</span>
+
+
+                </a>
             </li>
             {% endwith %}
             {% endwith %}

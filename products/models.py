@@ -44,6 +44,30 @@ class Product(models.Model):
         return f"https://raw.githubusercontent.com/solsolsol11/mbly_img/master/{img_name}.jpg"
 
 
+    def colors(self):
+        colors = []
+        product_reals = self.product_reals.all()
+        for product_real in product_reals:
+            colors.append(product_real.option_2_name)
+
+        html = ''
+
+
+        for color in set(colors):
+            if color == '레드':
+                rgb_color = 'red';
+            elif color == '그린':
+                rgb_color = 'green';
+            elif color == '블루':
+                rgb_color = 'blue';
+            elif color == '핑크':
+                rgb_color = 'pink';
+            elif color == '와인':
+                rgb_color = '#772F37';
+            html += f"""<span style="width:10px; height:10px; display:inline-block; border-radius:50%; margin:0 3px; background-color:{rgb_color};"></span>"""
+
+        return html
+
 class ProductReal(models.Model):
     reg_date = models.DateTimeField('등록날짜', auto_now_add=True)
     update_date = models.DateTimeField('갱신날짜', auto_now=True)
@@ -61,3 +85,4 @@ class ProductReal(models.Model):
     is_hidden = models.BooleanField('노출여부', default=False)
     add_price = models.IntegerField('추가가격', default=0)
     stock_quantity = models.PositiveIntegerField('재고개수', default=0)  # 품절일때 유용함
+
