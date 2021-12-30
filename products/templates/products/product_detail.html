@@ -17,29 +17,64 @@
                     <img class="t-w-full t-max-w-[300px] t-rounded" src="{{product.thumb_img_url}}" alt="">
                 </li>
                 <li class="list-group-item">
-                    번호 : <span class="badge bg-primary">{{product.id}}</span>
+                    <span class="sm:t-w-16 t-inline-block">번호</span>
+                    <span class="badge bg-primary">{{product.id}}</span>
                 </li>
                 <li class="list-group-item">
-                    등록날짜 : <span class="badge bg-secondary">{{product.reg_date}}</span>
+                    <span class="sm:t-w-16 t-inline-block">마켓</span>
+                    <span class="badge bg-primary">{{product.market.name}}</span>
                 </li>
                 <li class="list-group-item">
-                    수정날짜 : <span class="badge bg-secondary">{{product.update_date}}</span>
+                    <span class="sm:t-w-16 t-inline-block">상품명</span>
+                    <span class="t-font-bold">{{product.display_name}}</span>
                 </li>
                 <li class="list-group-item">
-                    상품명 : <span class="t-font-bold">{{product.display_name}}</span>
+                    <span class="sm:t-w-16 t-inline-block">가격</span>
+                    <span class="t-font-bold">{{product.sale_price|intcomma}}</span>원
                 </li>
-                <li class="list-group-item">
-                    가격 : <span class="t-font-bold">{{product.sale_price|intcomma}}</span>원
-                </li>
-                <li class="list-group-item">
-                    마켓 : <span class="badge bg-primary">{{product.market.name}}</span>
-                </li>
+
             </ul>
 
         </div>
         <div class="card t-mt-[30px]">
             <div class="card-header">
                 옵션
+            </div>
+
+            <div class="card-body">
+                <table class="table table-hover">
+                    <colgroup>
+                        <col class="sm:t-w-20">
+                        <col class="sm:t-w-20">
+                        <col class="sm:t-w-40">
+                    </colgroup>
+                    <thead>
+                    <tr>
+                        <th>사이즈</th>
+                        <th>색상</th>
+                        <th>품절</th>
+                    </tr>
+                    </thead>
+                    {% for product_real in product_reals %}
+                    <tbody>
+                    <tr>
+                        <td>
+                            {{ product_real.option_1_display_name }}
+                        </td>
+                        <td>
+                            {{ product_real.option_2_display_name }}
+                        </td>
+                        <td>
+                            {% if not product_real.is_out %}
+                            <span class="badge bg-primary">판매중</span>
+                            {% else %}
+                            <span class="badge bg-secondary">품절</span>
+                            {% endif %}
+                        </td>
+                    </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
             </div>
 
             <ul class="list-group list-group-flush">
@@ -67,7 +102,9 @@
                     {% bootstrap_button button_type="reset" content="취소" %}
                 </form>
                 {% else %}
-                <a href="{% url 'accounts:signin' %}?next={{ request.get_full_path }}">로그인</a> 후 이용해주세요.
+                <div class="t-text-gray-400">
+                    <a href="{% url 'accounts:signin' %}?next={{ request.get_full_path }}">로그인</a> 후 이용해주세요.
+                </div>
                 {% endif %}
 
                 {% if question_form.errors %}
@@ -76,6 +113,9 @@
                     (function(){
                         $(window).scrollTop($Form.offset().top);
                     });
+
+
+
                 </script>
                 {% endif %}
             </div>
@@ -85,7 +125,7 @@
             <div class="card-header">
                 질문리스트
             </div>
-
+            {% if questions %}
             <ul class="list-group list-group-flush">
                 {% for question in questions %}
                 <li class="list-group-item">
@@ -101,6 +141,16 @@
                 </li>
                 {% endfor %}
             </ul>
+            {% endif %}
+
+            {% if not questions %}
+            <div class="card-body">
+                <div class="t-text-gray-400">
+                    질문이 없습니다.
+                </div>
+
+            </div>
+            {% endif %}
         </div>
     </div>
 </section>
