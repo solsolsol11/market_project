@@ -12,7 +12,12 @@ from qna.models import Question
 
 
 def product_list(request: HttpRequest):
-    products = Product.objects.order_by('-id')
+    search_keyword = request.GET.get('search_keyword', '')
+
+    if not search_keyword:
+        products = Product.objects.order_by('-id')
+    else:
+        products = Product.objects.filter(display_name__icontains=search_keyword).order_by('-id')
 
     return render(request, "products/product_list.html", {
         "products": products
