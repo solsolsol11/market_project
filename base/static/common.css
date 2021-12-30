@@ -40,6 +40,10 @@
   margin-top: 1.25rem;
 }
 
+.t-mt-12 {
+  margin-top: 3rem;
+}
+
 .t-block {
   display: block;
 }

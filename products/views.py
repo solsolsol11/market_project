@@ -2,6 +2,7 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.contrib.contenttypes.models import ContentType
 from django.core import exceptions
+from django.core.paginator import Paginator
 from django.http import HttpRequest, HttpResponse
 from django.shortcuts import render, get_object_or_404, redirect
 from django.utils import timezone
@@ -13,11 +14,15 @@ from qna.models import Question
 
 def product_list(request: HttpRequest):
     search_keyword = request.GET.get('search_keyword', '')
+    page = request.GET.get('page', '1')
 
     if not search_keyword:
         products = Product.objects.order_by('-id')
     else:
         products = Product.objects.filter(display_name__icontains=search_keyword).order_by('-id')
+
+    paginator = Paginator(products, 3)
+    products = paginator.get_page(page)
 
     return render(request, "products/product_list.html", {
         "products": products
