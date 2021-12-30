@@ -14,6 +14,7 @@ from .decorators import logout_required
 from .forms import SignupForm, FindUsernameForm
 from .models import User
 
+
 class MyLoginView(SuccessMessageMixin, LoginView):
     template_name = 'accounts/signin.html'
     next_page = "/"
@@ -22,7 +23,6 @@ class MyLoginView(SuccessMessageMixin, LoginView):
         super().setup(request, *args, **kwargs)
         self.success_message = LazyString(
             lambda: f'{self.request.user.last_name}{self.request.user.first_name}님 환영합니다.')
-
 
     def get_initial(self):
         initial = self.initial.copy()
@@ -66,12 +66,12 @@ def find_username(request: HttpRequest):
             email = form.cleaned_data['email']
             first_name = form.cleaned_data['first_name']
 
-            qs:QuerySet = User.objects.filter(email=email, first_name=first_name)
+            qs: QuerySet = User.objects.filter(email=email, first_name=first_name)
 
             if not qs.exists():
                 messages.warning(request, "일치하는 회원이 존재하지 않습니다.")
             else:
-                user:User = qs.first()
+                user: User = qs.first()
                 messages.success(request, f'해당회원의 username은 {user.username} 입니다.')
                 return redirect(reverse("accounts:signin") + '?username=' + user.username)
     else:

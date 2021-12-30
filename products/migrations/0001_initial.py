@@ -6,18 +6,19 @@ import django.db.models.deletion
 
 from products.models import Product, ProductReal
 
+
 def gen_product(market_id: int, name: string, display_name: string, price: int, opt_1_names: (string), is_hidden: bool,
                 is_sold_out: bool, hit_count: int, review_count: int, review_point: int):
     category_ids = {
         '구두': 1,
         '니트': 2,
         '롱스커트': 3,
-        '숏스커트': 4,
+        '스커트': 4,
         '청바지': 5,
         '청자켓': 6,
         '청치마': 7,
         '코트': 8,
-        '백': 9,
+        '토드백': 9,
         '블라우스': 10,
     }
 
@@ -31,6 +32,12 @@ def gen_product(market_id: int, name: string, display_name: string, price: int, 
                       review_count=review_count, review_point=review_point)
     product.save()
 
+    for opt_1_name in opt_1_names:
+        opt_1_display_name = opt_1_name
+        for opt_2_index, opt_2_name in enumerate(opt_2_names):
+            opt_2_display_name = opt_2_display_names[opt_2_index]
+            ProductReal(product=product, option_1_name=opt_1_name, option_1_display_name=opt_1_display_name,
+                        option_2_name=opt_2_name, option_2_display_name=opt_2_display_name).save()
 
 
 def gen_master(apps, schema_editor):
@@ -72,9 +79,9 @@ def gen_master(apps, schema_editor):
     review_count = 100
     review_point = 2
 
-    gen_product(1, '숏스커트', '인스타 셀럽 숏스커트', price, ('FREE',),
+    gen_product(1, '스커트', '인스타 셀럽 스커트', price, ('FREE',),
                 False, False, hit_count, review_count, review_point)
-    gen_product(1, '숏스커트', '아이돌 숏스커트', price + 2000,
+    gen_product(1, '스커트', '아이돌 스커트', price + 2000,
                 ('FREE',),
                 False, False, hit_count + 500, review_count + 50, review_point + 1)
 
@@ -127,9 +134,9 @@ def gen_master(apps, schema_editor):
     review_count = 190
     review_point = 4
 
-    gen_product(3, '백', '인스타 셀럽 백', price, ('FREE',),
+    gen_product(3, '토드백', '인스타 셀럽 토드백', price, ('FREE',),
                 False, False, hit_count, review_count, review_point)
-    gen_product(3, '백', '아이돌 백', price + 2000,
+    gen_product(3, '토드백', '아이돌 토드백', price + 2000,
                 ('FREE',),
                 False, False, hit_count + 500, review_count + 50, review_point + 1)
 
@@ -143,8 +150,6 @@ def gen_master(apps, schema_editor):
     gen_product(3, '블라우스', '아이돌 블라우스', price + 2000,
                 ('XS', 'S', 'M', 'L', 'XL',),
                 False, False, hit_count + 500, review_count + 50, review_point + 1)
-
-
 
 
 class Migration(migrations.Migration):
