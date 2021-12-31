@@ -88,3 +88,8 @@ class ProductReal(models.Model):
     add_price = models.IntegerField('추가가격', default=0)
     stock_quantity = models.PositiveIntegerField('재고개수', default=0)  # 품절일때 유용함
 
+
+
+
+class ProductCategory(models.Model):
+    name = models.CharField('이름', max_length=10, default='SIZE')
