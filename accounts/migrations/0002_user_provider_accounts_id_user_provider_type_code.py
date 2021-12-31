@@ -2,9 +2,26 @@
 
 from django.db import migrations, models
 
+from accounts.models import User
+
+
+def gen_master(apps, schema_editor):
+    User.objects.create_user(username="admin", password="admin", first_name="관리자", email="", gender="F",
+                             is_superuser=True, is_staff=True)
+
+    for id in range(2, 6):
+        username = f"user{id}"
+        password = f"user{id}"
+        first_name = f"이름{id}"
+        last_name = f"성{id}"
+        email = f"test{id}@test.com"
+        gender = 'M'
+
+        User.objects.create_user(username=username, password=password, first_name=first_name, email=email,
+                                 gender=gender)
+
 
 class Migration(migrations.Migration):
-
     dependencies = [
         ('accounts', '0001_initial'),
     ]
@@ -18,6 +35,8 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='user',
             name='provider_type_code',
-            field=models.CharField(choices=[('local', '로컬'), ('kakao', '카카오')], default='local', max_length=20, verbose_name='프로바이더 타입코드'),
+            field=models.CharField(choices=[('local', '로컬'), ('kakao', '카카오')], default='local', max_length=20,
+                                   verbose_name='프로바이더 타입코드'),
         ),
+        migrations.RunPython(gen_master),
     ]

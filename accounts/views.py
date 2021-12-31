@@ -134,6 +134,8 @@ def kakao_signin_callback(request):
 
     id = profile_json.get("id")
 
-    User.login_with_kakao(id)
+    User.login_with_kakao(request, id)
 
-    return HttpResponse(id)
+    messages.success(request, "카카오톡 계정으로 로그인되었습니다")
+
+    return redirect("main")
