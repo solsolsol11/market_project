@@ -48,6 +48,11 @@
                      <li class="nav-item">
                         <a class="nav-link" href="{% url 'accounts:signout' %}"><i class="fas fa-sign-out-alt"></i>로그아웃</a>
                     </li>
+                    <li class="nav-item">
+                        <a href="" class="nav-link t-whitespace-nowrap">
+                            {{ user.first_name }}`s Mypage
+                        </a>
+                    </li>
 
                     {% else %}
                      <li class="nav-item t-whitespace-nowrap">
