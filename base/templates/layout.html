@@ -44,6 +44,9 @@
                     <li class="nav-item">
                         <a class="nav-link t-whitespace-nowrap" href="{% url 'products:list' %}"><i class="fas fa-tshirt"></i>상품리스트</a>
                     </li>
+                    <li class="nav-item">
+                        <a href="{% url 'cart:cart_view' %}" class="nav-link t-whitespace-nowrap"><i class="fas fa-shopping-cart"></i>장바구니</a>
+                    </li>
                     {% if user.is_authenticated %}
                      <li class="nav-item">
                         <a class="nav-link" href="{% url 'accounts:signout' %}"><i class="fas fa-sign-out-alt"></i>로그아웃</a>
@@ -65,11 +68,16 @@
                         <a class="nav-link" href="{% url 'accounts:find_username' %}"><i class="fas fa-users"></i>아이디 찾기</a>
                     </li>
                     {% endif %}
+
                 </ul>
+
+
+
                 <form class="d-flex" action="{% url 'products:list' %}">
                     <input class="form-control me-2" type="search" name="search_keyword" placeholder="상품명을 입력해주세요" aria-label="Search" value="{{request.GET.search_keyword}}">
                     <button class="btn btn-outline-success  t-whitespace-nowrap" type="submit">검색</button>
                 </form>
+
             </div>
         </div>
     </nav>
