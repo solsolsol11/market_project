@@ -47,7 +47,7 @@
             </div>
 
             <div class="card-body">
-                <form action="{% url 'cart:cart_view' %}" method="POST">
+                <form action="{% url 'cart:add' %}" method="POST">
                     {% csrf_token %}
 
                     {% bootstrap_form cart_add_form %}
