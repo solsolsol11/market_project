@@ -90,9 +90,9 @@ WSGI_APPLICATION = 'base.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'mege_market3',
-        'USER': 'sbsst',
-        'PASSWORD': 'sbs123414',
+        'NAME': 'site1004',
+        'USER': 'root',
+        'PASSWORD': '',
         'HOST': '127.0.0.1',
         'PORT': '3306',
         'OPTIONS': {

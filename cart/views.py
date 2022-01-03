@@ -1,4 +1,5 @@
 from django.contrib import messages
+from django.contrib.auth.decorators import login_required
 from django.http import HttpRequest, HttpResponse
 from django.shortcuts import render, redirect
 
@@ -6,7 +7,7 @@ from django.shortcuts import render, redirect
 from cart.forms import CartAddForm
 from products.models import ProductReal
 
-
+@login_required
 def add(request: HttpRequest):
     if request.method == "POST":
         product_real_id = request.POST.get('product_real')

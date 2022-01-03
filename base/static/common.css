@@ -24,16 +24,6 @@
   margin-bottom: 0px;
 }
 
-.t-mx-2 {
-  margin-left: 0.5rem;
-  margin-right: 0.5rem;
-}
-
-.t-my-2 {
-  margin-top: 0.5rem;
-  margin-bottom: 0.5rem;
-}
-
 .t-mt-\[30px\] {
   margin-top: 30px;
 }
@@ -131,22 +121,9 @@
      object-fit: cover;
 }
 
-.t-p-2 {
-  padding: 0.5rem;
-}
-
-.t-p-\[10px\] {
-  padding: 10px;
-}
-
 .t-py-\[20px\] {
   padding-top: 20px;
   padding-bottom: 20px;
-}
-
-.t-px-2 {
-  padding-left: 0.5rem;
-  padding-right: 0.5rem;
 }
 
 .t-pt-\[56px\] {
@@ -163,36 +140,6 @@
 
 .t-text-\[1\.2rem\] {
   font-size: 1.2rem;
-}
-
-.t-text-base {
-  font-size: 1rem;
-  line-height: 1.5rem;
-}
-
-.t-text-lg {
-  font-size: 1.125rem;
-  line-height: 1.75rem;
-}
-
-.t-text-4xl {
-  font-size: 2.25rem;
-  line-height: 2.5rem;
-}
-
-.t-text-3xl {
-  font-size: 1.875rem;
-  line-height: 2.25rem;
-}
-
-.t-text-2xl {
-  font-size: 1.5rem;
-  line-height: 2rem;
-}
-
-.t-text-xl {
-  font-size: 1.25rem;
-  line-height: 1.75rem;
 }
 
 .t-font-bold {
