@@ -49,29 +49,11 @@
             <div class="card-body">
                 <form action="{% url 'cart:cart_view' %}" method="POST">
                     {% csrf_token %}
-                    <div class="mb-3">
-                        <label class="form-label" for="product_real_id">옵션</label>
 
-                        <select class="form-control" id="product_real_id" name="product_real_id">
-                            <option disabled selected>옵션을 선택해주세요</option>
-                            {% for product_real in product_reals %}
-                            <option value="{{ product_real.id }}">{{ product_real.option_1_display_name }} / {{
-                                product_real.option_2_display_name }}
-                            </option>
-                            {% endfor %}
-                        </select>
-                    </div>
+                    {% bootstrap_form cart_add_form %}
+                    {% bootstrap_button button_type="submit" content="장바구니 담기" %}
+                    {% bootstrap_button button_type="reset" content="취소" %}
 
-                    <div class="mb-3">
-                        <label class="form-label" for="quantity">수량</label>
-                        <input name="quantity" id="quantity" placeholder="수량" min="1" max="100" type="number" value="1"
-                               class="form-control">
-                    </div>
-
-
-                    <div class="mb-3">
-                        <input type="submit" value="장바구니 담기" class="btn btn-success">
-                    </div>
                 </form>
             </div>
 
@@ -93,7 +75,7 @@
                             <th>사이즈</th>
                             <th>색상</th>
                             <th>품절</th>
-                            <th>장바구니</th>
+
                         </tr>
                         </thead>
                         {% for product_real in product_reals %}
@@ -112,13 +94,7 @@
                                 <span class="badge bg-secondary">품절</span>
                                 {% endif %}
                             </td>
-                            <td>
-                                <form method="POST" action="{% url 'cart:cart_view' %}">
-                                    {% csrf_token %}
-                                    {% bootstrap_button button_type="submit" content="담기" %}
 
-                                </form>
-                            </td>
                         </tr>
                         {% endfor %}
                         </tbody>

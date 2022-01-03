@@ -7,6 +7,7 @@ from django.http import HttpRequest, HttpResponse
 from django.shortcuts import render, get_object_or_404, redirect
 from django.utils import timezone
 
+from cart.forms import CartAddForm
 from products.forms import QuestionForm
 from products.models import Product
 from qna.models import Question
@@ -29,6 +30,8 @@ def product_list(request: HttpRequest):
     })
 
 def _product_detail(request: HttpRequest, product_id):
+    cart_add_form = CartAddForm(product_id=product_id)
+
     product = get_object_or_404(Product, id=product_id)
 
     if request.method == "POST" and request.user.is_authenticated:
@@ -53,6 +56,8 @@ def _product_detail(request: HttpRequest, product_id):
         "product_reals": product_reals,
         "questions": questions,
         "question_form": form,
+        "cart_add_form": cart_add_form,
+
 
     })
 
