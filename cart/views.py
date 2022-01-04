@@ -11,11 +11,14 @@ from products.models import ProductReal, Product
 
 
 @login_required
-def add(request: HttpRequest):
+def add(request):
     if request.method == "POST":
         product_real_id = request.POST.get('product_real')
+
         product_real = ProductReal.objects.get(id=product_real_id)
+
         form = CartAddForm(request.POST, product_id=product_real.product_id)
+
 
         if form.is_valid():
             cart_item = form.save(commit=False)

@@ -12,5 +12,5 @@ class CartItem(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     product_real = models.ForeignKey(ProductReal, on_delete=models.CASCADE)
     quantity = models.PositiveSmallIntegerField('수량', default=1, validators=[MinValueValidator(1), MaxValueValidator(10)])
-    product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name="cart_item", null=True)
-    sale_price = models.PositiveIntegerField(Product,'판매가격')
+    product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name="cart_item")
+    sale_price = models.PositiveIntegerField(Product, null=True, default=None)

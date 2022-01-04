@@ -19,4 +19,4 @@ class CartAddForm(ModelForm):
 
     class Meta:
         model = CartItem
-        fields = ['product_real', 'quantity', 'sale_price']
+        fields = ['product_real', 'quantity']
