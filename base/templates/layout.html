@@ -45,7 +45,7 @@
                         <a class="nav-link t-whitespace-nowrap" href="{% url 'products:list' %}"><i class="fas fa-tshirt"></i>상품리스트</a>
                     </li>
                     <li class="nav-item">
-                        <a href="{% url 'cart:my_cart' %}" class="nav-link t-whitespace-nowrap"><i class="fas fa-shopping-cart"></i>장바구니</a>
+                        <a href="{% url 'cart:cart_item' %}" class="nav-link t-whitespace-nowrap"><i class="fas fa-shopping-cart"></i>장바구니</a>
                     </li>
                     {% if user.is_authenticated %}
                      <li class="nav-item">
