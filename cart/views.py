@@ -28,8 +28,10 @@ def add(request):
 
 def cart_item(request:HttpRequest):
     product_real_id = request.POST.get('product_real')
+    product_id = request.POST.get('product_id')
 
 
     return render(request, "cart/cart_list.html", {
-        'product_real_id': product_real_id
+        'product_real_id': product_real_id,
+        'product_id': product_id,
     })
