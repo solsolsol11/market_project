@@ -85,6 +85,10 @@
   width: 91.666667%;
 }
 
+.t-w-\[10px\] {
+  width: 10px;
+}
+
 .t-max-w-screen-md {
   max-width: 768px;
 }
@@ -95,6 +99,16 @@
 
 .t-flex-1 {
   flex: 1 1 0%;
+}
+
+.t-scale-150 {
+  --tw-scale-x: 1.5;
+  --tw-scale-y: 1.5;
+  transform: var(--tw-transform);
+}
+
+.t-cursor-pointer {
+  cursor: pointer;
 }
 
 .t-grid-cols-1 {
@@ -133,6 +147,16 @@
   border-radius: 0.25rem;
 }
 
+.t-bg-red-500 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(239 68 68 / var(--tw-bg-opacity));
+}
+
+.t-bg-gray-500 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(107 114 128 / var(--tw-bg-opacity));
+}
+
 .t-object-cover {
   -o-object-fit: cover;
      object-fit: cover;
@@ -167,6 +191,10 @@
 
 .t-text-\[1\.2rem\] {
   font-size: 1.2rem;
+}
+
+.t-text-\[100px\] {
+  font-size: 100px;
 }
 
 .t-font-bold {

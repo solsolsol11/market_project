@@ -3,7 +3,7 @@
 {% load django_bootstrap5 %}
 
 {%block content %}
-{% if not cart_items %}
+
 <section class="section-prod-list">
     <div class="container">
         <div class="card t-mt-[30px]">
@@ -12,7 +12,7 @@
 
                 <form action="#" method="POST">
                     {% csrf_token %}
-                    <div class="t-font-bold t-px-0 t-text-xl t-items-end t-whitespace-nowrap"><a href="#"
+                    <div class="t-font-bold t-px-0 t-text-xl t-items-end t-whitespace-nowrap"><a href="{% url 'cart:cart_delete' %}"
                                                                                                  class="t-text-black t-no-underline"><i
                             class="far fa-trash-alt"></i>삭제</a></div>
                 </form>
@@ -25,45 +25,33 @@
                 <div class="row">
                     <table class="table">
                         <thead>
+                        <th class="text-center t-bg-gray-500">이미지</th>
                         <th>이름</th>
                         <th>수량</th>
                         <th>가격</th>
+                        <th></th>
                         </thead>
                         <tbody>
                         {% for cart_item in cart_items %}
                         <tr>
-                            <td>
-                                <a href="{{ cart_item.product.get_absolute_url }}" class="t-float-left t-rounded"><img
-                                        src="{{product.thumb_img_url}}"
-                                        alt=""></a>
-                            </td>
+                            <th>
+                                <a href=""><img src="{{ cart_item.product_real.product.thumb_img_url }}" alt="" width="100px" ,
+                                     height="100px"></a>
+                            </th>
+                            <th>
+                                <a href="" class="t-text-black t-no-underline">{{ cart_item.product_real.product.display_name }}</a>
+                            </th>
+                            <th>
 
-                            <td>
-                                {{ cart_item.product.name }}
-                                <br>
-                                SKU: {{cart_item.product.id}}
-                                <br>
-                                가격 : \{{ cart_item.product.price }}
-                                <br>
-                                수량 : {{cart_item.quantity}} x A\{{ cart_item.product.price }}
-                            </td>
-                            <td>
-                                A\{{ cart_item.sub_total }}
-                            </td>
-                            {% if cart_item.quantity <= cart_item.product.stock %}
-                            <td>
-                                <a href="{% url 'cart:add' cart_item.product.id %}" class=""><i
-                                        class="fas fa-plus-circle custom_icon"></i></a>&nbsp;
-                                <a href=""><i class="fas fa-minus-circle custom_icon"></i></a>&nbsp;
-                                <a href=""><i class="far fa-trash-alt"></i></a>
-                            </td>
+                                {{ cart_item.quantity }}
+                            </th>
+                            <th>
+                                {{ cart_item.product_real.product.sale_price|intcomma }}
+                            </th>
+                            <th class="">
+                                <input type="checkbox" class="t-cursor-pointer t-scale-150">
+                            </th>
 
-                            {% else %}
-                            <td>
-                                &nbsp;<a href="" class=""><i class="fas fa-minus-circle custom_icon"></i></a>&nbsp;
-                                <a href=""><i class="far fa-trash-alt"></i></a>
-                            </td>
-                            {% endif %}
                         </tr>
                         {% endfor %}
                         </tbody>
@@ -91,11 +79,11 @@
                             </tbody>
                         </table>
                         <div class="t-mx-auto">
-                            <a href="#" class="btn btn-secondary btn-block">쇼핑 계속하기</a>
+                            <a href="{% url 'products:list' %}" class="btn btn-secondary btn-block">쇼핑 계속하기</a>
                         </div>
                     </div>
 
-                    <a class="btn btn-success" href="#">구매</a>
+
                 </div>
 
 
@@ -103,7 +91,7 @@
         </div>
     </div>
 </section>
-{% endif %}
+
 
 {% endblock %}
 

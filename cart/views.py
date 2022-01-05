@@ -2,7 +2,8 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.core.exceptions import ObjectDoesNotExist
 from django.http import HttpRequest, HttpResponse, Http404
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
+from django.core import exceptions
 
 # Create your views here.
 from django.views.decorators.http import require_POST
@@ -30,14 +31,20 @@ def add(request):
             return redirect('products:detail', 20)
 
 
-def cart_item(request, product_real):
-    product_real_id = request.POST.get('product_real')
-    product_real = ProductReal.objects.get(id=product_real_id)
-    form = CartAddForm(request.POST, product_id=product_real.product_id)
-
+def cart_item(request):
+    cart_items = CartItem.objects.filter(user=request.user)
 
     return render(request, 'cart/cart_list.html', {
-        'product_real_id': product_real_id,
-        'product_real': product_real,
-        'form': form,
+        'cart_items': cart_items
     })
+
+@login_required
+def cart_delete(request:HttpRequest):
+    cart_items = CartItem.objects.filter(user=request.user)
+
+
+    cart_items.delete()
+
+    messages.success(request, "상품이 삭제되었습니다")
+
+    return redirect("/cart")

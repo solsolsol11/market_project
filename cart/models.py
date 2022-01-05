@@ -9,6 +9,7 @@ from products.models import ProductReal, Product
 
 
 
+
 class CartItem(models.Model):
     reg_date = models.DateTimeField(auto_now_add=True)
     update_date = models.DateTimeField(auto_now=True)
