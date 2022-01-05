@@ -109,8 +109,8 @@ def kakao_signin_callback(request):
     REST_API_KEY = os.environ.get("KAKAO_APP__REST_API_KEY")
     REDIRECT_URI = os.environ.get("KAKAO_APP__LOGIN__REDIRECT_URI")
 
-    REST_API_KEY = "aada477afc042d55e52f3b009de41e5b"
-    REDIRECT_URI = "http://localhost:8000/accounts/signin/kakao/callback"
+
+
 
     # (2)
     token_request = requests.get(

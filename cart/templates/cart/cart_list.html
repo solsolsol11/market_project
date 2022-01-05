@@ -3,7 +3,7 @@
 {% load django_bootstrap5 %}
 
 {%block content %}
-
+{% if not cart_items %}
 <section class="section-prod-list">
     <div class="container">
         <div class="card t-mt-[30px]">
@@ -68,32 +68,32 @@
                         {% endfor %}
                         </tbody>
                     </table>
-                <div class="">
-                    <table class="table">
-                        <thread class="">
+                    <div class="">
+                        <table class="table">
+                            <thread class="">
+                                <tr>
+                                    <th>
+                                        총합
+                                    </th>
+                                </tr>
+                            </thread>
+                            <tbody>
                             <tr>
-                                <th>
-                                    총합
-                                </th>
+                                <td>
+                                    감사합니다
+                                </td>
                             </tr>
-                        </thread>
-                        <tbody>
-                        <tr>
-                            <td>
-                                감사합니다
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                금액 : <strong>\{{ total }}</strong>
-                            </td>
-                        </tr>
-                        </tbody>
-                    </table>
-                    <div class="t-mx-auto">
-                        <a href="" class="btn btn-secondary btn-block">쇼핑 계속하기</a>
+                            <tr>
+                                <td>
+                                    금액 : <strong>\{{ total }}</strong>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                        <div class="t-mx-auto">
+                            <a href="#" class="btn btn-secondary btn-block">쇼핑 계속하기</a>
+                        </div>
                     </div>
-                </div>
 
                     <a class="btn btn-success" href="#">구매</a>
                 </div>
@@ -103,7 +103,7 @@
         </div>
     </div>
 </section>
-
+{% endif %}
 
 {% endblock %}
 
