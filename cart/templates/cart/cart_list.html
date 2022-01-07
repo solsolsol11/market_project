@@ -1,103 +1,117 @@
 {% extends "layout.html" %}
 {% load humanize %}
-{% load django_bootstrap5 %}
 
 {%block content %}
 
-<section class="section-prod-list">
+<script>
+    function CartItemModifyForm__updateQuantity(el, add) {
+        const $form = $(el).closest('form');
+        const $salePrice = $form.find('.cart-item-modify-form__sale-price');
+        const productSalePrice = parseInt($salePrice.attr('data-sale-price'));
+        const $inputNumber = $form.find('input[type="number"]');
+        const oldQuantity = parseInt($inputNumber.val());
+        let newQuantity = oldQuantity + add;
+        if ( newQuantity > 100 ) {
+            newQuantity = 100;
+        }
+        else if ( newQuantity < 1 ) {
+            newQuantity = 1
+        }
+        $inputNumber.val(newQuantity);
+        $salePrice.text((productSalePrice * newQuantity).price_format());
+    }
+
+    function CartItems__allCheckBoxCheckChanged(el) {
+        if ( el.checked ) {
+            $('.cart-items__checkbox-item:not(:checked)').prop('checked', true);
+        }
+        else {
+            $('.cart-items__checkbox-item:checked').prop('checked', false);
+        }
+    }
+
+    function CartItems__itemCheckeChanged(el) {
+        const allCheckBoxNewCheckStatus = $('.cart-items__checkbox-item:not(:checked)').length == 0
+        $('.cart-items__checkbox-all').prop('checked', allCheckBoxNewCheckStatus);
+    }
+
+
+</script>
+
+<section class="section-cart-item-list">
     <div class="container">
-        <div class="card t-mt-[30px]">
-            <div class="t-flex card-header">
-                <span class="t-w-11/12 t-text-xl t-font-bold t-text-black-500"><i class="fas fa-shopping-cart"></i> 장바구니 품목</span>
+        <h1 class="t-text-[1.2rem] t-font-bold">장바구니</h1>
 
-                <form action="#" method="POST">
-                    {% csrf_token %}
-                    <div class="t-font-bold t-px-0 t-text-xl t-items-end t-whitespace-nowrap"><a href="{% url 'cart:cart_delete' %}"
-                                                                                                 class="t-text-black t-no-underline"><i
-                            class="far fa-trash-alt"></i>삭제</a></div>
-                </form>
+        <div class="t-mt-[10px]">
+            <input type="checkbox" class="cart-items__checkbox-all" onchange="CartItems__allCheckBoxCheckChanged(this)">
+        </div>
 
-
-            </div>
-            <div class="card-body">
-
-
-                <div class="row">
-                    <table class="table">
-                        <thead>
-                        <th class="text-center t-bg-gray-500">이미지</th>
-                        <th>이름</th>
-                        <th>수량</th>
-                        <th>가격</th>
-                        <th>v</th>
-                        </thead>
-                        <tbody>
-                        {% for cart_item in cart_items %}
-                        <tr>
-                            <th>
-                                <a href=""><img src="{{ cart_item.product_real.product.thumb_img_url }}" alt="" width="100px" ,
-                                     height="100px"></a>
-                            </th>
-                            <th>
-                                <a href="" class="t-text-black t-no-underline">{{ cart_item.product_real.product.display_name }}</a>
-                            </th>
-                            <th>
-
-                                {{ cart_item.quantity }}
-                            </th>
-                            <th>
-                                {{ cart_item.product_real.product.sale_price|intcomma }}
-                            </th>
-                            <th class="">
-                                {% if request.user == user.author %}
-
-                                    <form action="">
-                                        <input type="checkbox" class="t-cursor-pointer t-scale-150">
-                                    </form>
-
-                                {% endif %}
-                            </th>
-
-                        </tr>
-                        {% endfor %}
-                        </tbody>
-                    </table>
-                    <div class="">
-                        <table class="table">
-                            <thread class="">
-                                <tr>
-                                    <th>
-                                        총합
-                                    </th>
-                                </tr>
-                            </thread>
-                            <tbody>
-                            <tr>
-                                <td>
-                                    감사합니다
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    금액 : <strong>\{{ total }}</strong>
-                                </td>
-                            </tr>
-                            </tbody>
-                        </table>
-                        <div class="t-mx-auto">
-                            <a href="{% url 'products:list' %}" class="btn btn-secondary btn-block">쇼핑 계속하기</a>
-                        </div>
+        <ul>
+            {% for cart_item in cart_items %}
+            <li class="t-border-[color:#989898] t-border-0 t-border-t t-border-solid t-py-[20px]">
+                <div class="t-flex">
+                    <input type="checkbox" class="cart-items__checkbox-item"
+                           onchange="CartItems__itemCheckeChanged(this)">
+                    <a href="{% url 'products:detail' cart_item.product_real.product.id %}">
+                        <img class="t-flex-shrink-0 t-ml-2 t-w-[80px] t-h-[80px] sm:t-w-[150px] sm:t-h-[150px] t-object-cover rounded"
+                             src="{{cart_item.product_real.product.thumb_img_url}}" alt="">
+                    </a>
+                    <div class="t-ml-2"><a href="{% url 'products:detail' cart_item.product_real.product.id %}">{{cart_item.product_real.product.display_name}}</a>
                     </div>
-
+                </div>
+                <div class="t-flex t-pl-5 t-mt-2">
+                    <div>{{cart_item.product_real.option_1_display_name}}</div>
+                    <div>/</div>
+                    <div>{{cart_item.product_real.option_2_display_name}}</div>
+                </div>
+                <div class="t-flex t-pl-5 t-mt-2">
+                    <div>\ {{ cart_item.product_real.product.sale_price|intcomma }}</div>
+                </div>
+                <form method="POST" action="{% url 'cart:modify' cart_item.id %}"
+                      class="t-flex t-items-center t-pl-5 t-mt-2">
+                    {% csrf_token %}
+                    <span onclick="CartItemModifyForm__updateQuantity(this, -1)">
+                        <i class="fas fa-minus-circle"></i>
+                    </span>
+                    <span>&nbsp;</span>
+                    <input name="quantity" readonly min="1" max="100" class="form-control t-w-[100px]" type="number"
+                           value="{{cart_item.quantity}}">
+                    <span>&nbsp;</span>
+                    <span onclick="CartItemModifyForm__updateQuantity(this, 1)">
+                        <i class="fas fa-plus-circle"></i>
+                    </span>
+                    <span>&nbsp;</span>
+                    <input type="submit" class="btn btn-primary btn-sm" value="수량수정">
+                    <span>&nbsp;</span>
+                    <a onclick="if ( !confirm('정말 삭제하시겠습니까?') ) return false;"
+                       href="{% url 'cart:delete' cart_item.id %}" class="btn btn-danger btn-sm">삭제</a>
+                    <div class="t-flex-1"></div>
+                    <div>
+                        총 가격 :
+                        \
+                        {% widthratio cart_item.quantity 1 cart_item.product_real.product.sale_price as total_price %}
+                        <span class="cart-item-modify-form__sale-price"
+                              data-sale-price="{{cart_item.product_real.product.sale_price}}">{{total_price|intcomma}}</span>
+                    </div>
+                </form>
+                <div>
 
                 </div>
+                <div>
 
+                </div>
+            </li>
+            {% endfor %}
+        </ul>
 
-            </div>
+        <div>
+
         </div>
-    </div>
+
+        <form name="CartItemsDeleteForm" class="t-hidden" action="{% url 'cart:delete_items' %}" method="POST">
+            {% csrf_token %}
+            <input type="hidden" name="ids" value="">
+        </form>
 </section>
 
-
-{% endblock %}
-
+{%endblock%}

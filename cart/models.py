@@ -1,7 +1,7 @@
 from django.core.validators import MinValueValidator, MaxValueValidator
 from django.db import models
 from accounts.models import User
-from products.models import ProductReal, Product
+from products.models import ProductReal
 
 
 
@@ -10,7 +10,7 @@ from products.models import ProductReal, Product
 
 
 
-class ProductCratItem(models.Model):
+class CartItem(models.Model):
     reg_date = models.DateTimeField(auto_now_add=True)
     update_date = models.DateTimeField(auto_now=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
