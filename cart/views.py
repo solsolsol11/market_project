@@ -9,18 +9,18 @@ from django.core import exceptions
 from django.views.decorators.http import require_POST
 
 from accounts.models import User
-from cart.forms import CartAddForm
-from cart.models import CartItem
+from cart.forms import ProductCartAddForm
+from cart.models import ProductCratItem
 from products.models import ProductReal, Product
 
 
 @login_required
 @require_POST
 def add(request):
-    if request.method == "POST":
-        product_real_id = request.POST.get('product_real')
-        product_real = ProductReal.objects.get(id=product_real_id)
-        form = CartAddForm(request.POST, product_id=product_real.product_id)
+
+
+        product_real:ProductReal = ProductReal.objects.get(id=request.POST.get('product_real'))
+        form = ProductCartAddForm(request.POST)
 
         if form.is_valid():
             cart_item = form.save(commit=False)
@@ -28,11 +28,15 @@ def add(request):
             cart_item.save()
 
             messages.success(request, "장바구니에 추가되었습니다.")
-            return redirect('products:detail', 20)
+            return redirect('products:detail', product_real.product_id)
+
+        messages.error(request, form['quantity'].errors, 'danger')
+        return redirect('products:detail', product_real.product.id)
 
 
+@login_required
 def cart_item(request):
-    cart_items = CartItem.objects.filter(user=request.user)
+    cart_items = ProductCratItem.objects.filter(user=request.user)
 
     return render(request, 'cart/cart_list.html', {
         'cart_items': cart_items
@@ -40,10 +44,11 @@ def cart_item(request):
 
 @login_required
 def cart_delete(request:HttpRequest):
-    cart_items = CartItem.objects.filter(user=request.user)
+    cart_items = ProductCratItem.objects.filter(user=request.user)
 
 
     cart_items.delete()
+
 
     messages.success(request, "상품이 삭제되었습니다")
 
